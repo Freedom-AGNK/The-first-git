@@ -1,9 +1,8 @@
 package com.tea.util;
-import java.net.PasswordAuthentication;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-public class dbUtil {
+public class DbUtil {
     private static final String URL= "jdbc:mysql://localhost:3306/milktea_saga"
             + "?useUnicode=true&characterEncoding=UTF-8"
             + "&useSSL=false&serverTimezone=Asia/Shanghai";
@@ -19,7 +18,7 @@ public class dbUtil {
     public static  Connection getConnection() throws SQLException{
         return DriverManager.getConnection(URL,USER,PASSWORD);
     }
-    private dbUtil(){
+    private DbUtil(){
         
     }
 }

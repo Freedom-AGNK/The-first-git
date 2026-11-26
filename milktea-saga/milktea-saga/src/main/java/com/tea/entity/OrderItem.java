@@ -1,4 +1,4 @@
-package com.tea.enity;
+package com.tea.entity;
 import java.math.BigDecimal;
 public class OrderItem {
     private Long id;
