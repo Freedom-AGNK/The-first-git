@@ -70,7 +70,7 @@ public class Drink {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
+    public Drink() {}
     @Override
     public String toString(){
         return String.format("[%d] %-12s ¥%-6s 库存 %d",

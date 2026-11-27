@@ -14,7 +14,10 @@ public class Member {
         this.points = points;
         this.createdAt = createdAt;
     }
-
+    public Member(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+    }
     public Long getId() {
         return id;
     }
@@ -54,7 +57,7 @@ public class Member {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
+    public Member(){}
     @Override
     public String toString() {
         return String.format("会员[%d] %s（%s）积分 %d",

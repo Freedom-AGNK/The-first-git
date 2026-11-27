@@ -39,17 +39,17 @@ public class DrinkDao {
          try (Connection conn = DbUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
              ps.setString(1,d.getName());
-             ps.setString(2,getCategory());
-             ps.setBigDecimal(3,d.getPrice();
+             ps.setString(2,d.getCategory());
+             ps.setBigDecimal(3,d.getPrice());
              ps.setInt(4,d.getStock());
              int n=ps.executeUpdate();
              try(ResultSet keys=ps.getGeneratedKeys()) {
                  if(keys.next()) d.setId(keys.getLong(1));
-             }
+             }return n;
          } catch (SQLException e) {
              throw new RuntimeException("新增奶茶失败",e);
          }
-        return 0;
+
     }
     public int updatePriceAndStock(Long id, java.math.BigDecimal price, Integer stock) {
         String sql = "UPDATE drink SET price = ?, stock = ? WHERE id = ";
@@ -73,8 +73,9 @@ public class DrinkDao {
          } catch (SQLException e) {
              throw new RuntimeException("修改奶茶失败",e);
          }
+
     }//库存预警
-    public List<Drink> listLowStock(int thewshold){
+    public List<Drink> listLowStock(int threshold){
         String sql="SELECT id, name, category, price, stock, is_active "
         +"FROM drink WHERE is_active = 1 AND stock < ? ORDER BY stock";
         List<Drink> list=new ArrayList<>();
@@ -82,7 +83,7 @@ public class DrinkDao {
             PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1,threshold);
             try(ResultSet rs=ps.executeQuery()){
-                while(rs.next() list.add(map(rs));
+                while(rs.next()) list.add(map(rs));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
