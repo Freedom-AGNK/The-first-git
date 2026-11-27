@@ -16,6 +16,10 @@ public class TeaOrder {
         this.createdAt = createdAt;
     }
 
+    public TeaOrder() {
+
+    }
+
     public Long getMemberId() {
         return memberId;
     }

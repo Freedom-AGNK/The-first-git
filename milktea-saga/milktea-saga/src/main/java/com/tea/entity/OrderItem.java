@@ -19,6 +19,10 @@ public class OrderItem {
         this.subtotal = subtotal;
     }
 
+    public OrderItem() {
+
+    }
+
     public Long getId() {
         return id;
     }
