@@ -48,16 +48,16 @@ public class OrderService {
             for(OrderItem it:items){
                 it.setOrderId(orderId);
                 orderItemDao.insertWithConn(conn,it);
-                decrementStock(conn,memberId,delta);
+                decrementStock(conn, it.getDrinkId(), it.getQuantity());
             }//给会员加积分
             Integer pointsAfter=null;
             if(memberId!=null){
                 int delta=total.intValue();//向下取整，满一元加一分
-                pointsAfter=addPointsInTx(conn,total,pointsAfter);
+                pointsAfter=addPointsInTx(conn,memberId,pointsAfter);
             }
             //全部提交
             conn.commit();
-            retuen new PlaceOrderResult(orderId,total,pointsAfter);
+            return new PlaceOrderResult(orderId,total,pointsAfter);
         }catch (Exception e){
             //一步失败全部回滚
             if(conn!=null){
@@ -69,7 +69,6 @@ public class OrderService {
                 try { conn.close(); } catch (SQLException ignore) {}
                     }
             }
-        return null;
     }
         //防止超卖
     private void decrementStock(Connection conn,Long drinkId,int qty)throws SQLException{

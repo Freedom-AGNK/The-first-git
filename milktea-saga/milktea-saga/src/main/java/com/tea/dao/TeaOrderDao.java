@@ -51,4 +51,31 @@ public class TeaOrderDao {
             throw new RuntimeException("查询订单失败",e);
         }
     }
+    public java.util.List<TeaOrder> listOrderByMemberId(Long memberId){
+        String sql="SELECT o.id, o.member_id, o.total_amount, o.status, o.created_at"
+                +"FROM tea_order o "
+                + "WHERE o.member_id = ? "
+                + "ORDER BY o.created_at DESC";
+        java.util.List<TeaOrder> list = new java.util.ArrayList<>();
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1,memberId);
+            try(ResultSet rs =ps.executeQuery()){
+                while (rs.next()){
+                    TeaOrder o=new TeaOrder();
+                    o.setId(rs.getLong("id"));
+                    long mid=rs.getLong("member_id");
+                    o.setMemberId(rs.wasNull()?null:mid);
+                    o.setTotalAmount(rs.getBigDecimal("total_amount"));
+                    o.setStatus(rs.getString("status"));
+                    java.sql.Timestamp ts = rs.getTimestamp("created_at");
+                    if (ts != null) o.setCreatedAt(ts.toLocalDateTime());
+                    list.add(o);
+                }
+            }
+        }catch (SQLException e) {
+            throw new RuntimeException("查询会员订单失败",e);
+        }
+        return list;
+    }
 }
