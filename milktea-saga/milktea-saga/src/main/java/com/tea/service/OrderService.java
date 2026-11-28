@@ -103,7 +103,7 @@ public class OrderService {
     public TeaOrder findOrderById(Long id){
         return teaOrderDao.findById(id);
     }
-    public List<OrderItem> findItemByOrderId(Long orderId){
+    public List<OrderItem> findItemsByOrderId(Long orderId){
         return orderItemDao.findByOrderIdWithDrinkName(orderId);
     }
 }

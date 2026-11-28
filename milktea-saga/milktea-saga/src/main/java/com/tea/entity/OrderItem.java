@@ -23,6 +23,10 @@ public class OrderItem {
 
     }
 
+    public OrderItem(Long id, int qty, BigDecimal price) {
+
+    }
+
     public Long getId() {
         return id;
     }

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 public class StatService {
     //销量第一行数据
-    public record SaleRank(String drinkname,int totalQty,BigDecimal totalAmount){}
+    public record SaleRank(String drinkName,int totalQty,BigDecimal totalAmount){}
     //营业额汇总
-    public record MonthlySummary(String period,int totalQty,BigDecimal totalAmount,BigDecimal aveAmount){}
+    public record MonthlySummary(String period,int orderCount,BigDecimal totalAmount,BigDecimal avgAmount){}
     public List<SaleRank> topSalesThisMonth(int topN){
         String sql="SELECT d.name AS drink_name, "
                 + "       SUM(oi.quantity)  AS total_qty, "
